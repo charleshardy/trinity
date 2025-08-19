@@ -62,7 +62,7 @@ void map_destructor(struct object *obj)
 void map_dump(struct object *obj, bool global)
 {
 	struct map *m;
-	char buf[11];
+	char buf[32];
 
 	m = &obj->map;
 
