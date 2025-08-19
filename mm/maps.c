@@ -57,6 +57,7 @@ void map_destructor(struct object *obj)
 	map = &obj->map;
 	munmap(map->ptr, map->size);
 	free(map->name);
+	map->name = NULL;
 }
 
 void map_dump(struct object *obj, bool global)
@@ -197,7 +198,9 @@ retry_mmap:
 		retries++;
 		if (retries == 100) {
 			free(obj->map.name);
+			obj->map.name = NULL;
 			free(obj);
+			obj = NULL;
 			return;
 		} else
 			goto retry_mmap;
